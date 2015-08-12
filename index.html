@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Naval Battle</title>
+    <style>
+      body{
+        font-family: Helvetica;
+      }
+      td{
+        width: 20px;
+        height: 20px;
+      }
+      .attack-losed{
+        background: #FFFF00;
+      }
+      .attack{
+        background: red;
+      }
+      .destroyed{
+        background: #FF00FF;
+      }
+      .navy{
+        background: blue;
+      }
+      table{
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="username"></div>
+    <div id="myField">
+      <table id="table" border="1">
+        <thead>
+          <tr>
+            <td></td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+            <td>H</td>
+            <td>I</td>
+            <td>J</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td data-cor="A1"></td>
+            <td data-cor="B1"></td>
+            <td data-cor="C1"></td>
+            <td data-cor="D1"></td>
+            <td data-cor="E1"></td>
+            <td data-cor="F1"></td>
+            <td data-cor="G1"></td>
+            <td data-cor="H1"></td>
+            <td data-cor="I1"></td>
+            <td data-cor="J1"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td data-cor="A2"></td>
+            <td data-cor="B2"></td>
+            <td data-cor="C2"></td>
+            <td data-cor="D2"></td>
+            <td data-cor="E2"></td>
+            <td data-cor="F2"></td>
+            <td data-cor="G2"></td>
+            <td data-cor="H2"></td>
+            <td data-cor="I2"></td>
+            <td data-cor="J2"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td data-cor="A3"></td>
+            <td data-cor="B3"></td>
+            <td data-cor="C3"></td>
+            <td data-cor="D3"></td>
+            <td data-cor="E3"></td>
+            <td data-cor="F3"></td>
+            <td data-cor="G3"></td>
+            <td data-cor="H3"></td>
+            <td data-cor="I3"></td>
+            <td data-cor="J3"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td data-cor="A4"></td>
+            <td data-cor="B4"></td>
+            <td data-cor="C4"></td>
+            <td data-cor="D4"></td>
+            <td data-cor="E4"></td>
+            <td data-cor="F4"></td>
+            <td data-cor="G4"></td>
+            <td data-cor="H4"></td>
+            <td data-cor="I4"></td>
+            <td data-cor="J4"></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td data-cor="A5"></td>
+            <td data-cor="B5"></td>
+            <td data-cor="C5"></td>
+            <td data-cor="D5"></td>
+            <td data-cor="E5"></td>
+            <td data-cor="F5"></td>
+            <td data-cor="G5"></td>
+            <td data-cor="H5"></td>
+            <td data-cor="I5"></td>
+            <td data-cor="J5"></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td data-cor="A6"></td>
+            <td data-cor="B6"></td>
+            <td data-cor="C6"></td>
+            <td data-cor="D6"></td>
+            <td data-cor="E6"></td>
+            <td data-cor="F6"></td>
+            <td data-cor="G6"></td>
+            <td data-cor="H6"></td>
+            <td data-cor="I6"></td>
+            <td data-cor="J6"></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td data-cor="A7"></td>
+            <td data-cor="B7"></td>
+            <td data-cor="C7"></td>
+            <td data-cor="D7"></td>
+            <td data-cor="E7"></td>
+            <td data-cor="F7"></td>
+            <td data-cor="G7"></td>
+            <td data-cor="H7"></td>
+            <td data-cor="I7"></td>
+            <td data-cor="J7"></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td data-cor="A8"></td>
+            <td data-cor="B8"></td>
+            <td data-cor="C8"></td>
+            <td data-cor="D8"></td>
+            <td data-cor="E8"></td>
+            <td data-cor="F8"></td>
+            <td data-cor="G8"></td>
+            <td data-cor="H8"></td>
+            <td data-cor="I8"></td>
+            <td data-cor="J8"></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td data-cor="A9"></td>
+            <td data-cor="B9"></td>
+            <td data-cor="C9"></td>
+            <td data-cor="D9"></td>
+            <td data-cor="E9"></td>
+            <td data-cor="F9"></td>
+            <td data-cor="G9"></td>
+            <td data-cor="H9"></td>
+            <td data-cor="I9"></td>
+            <td data-cor="J9"></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td data-cor="A10"></td>
+            <td data-cor="B10"></td>
+            <td data-cor="C10"></td>
+            <td data-cor="D10"></td>
+            <td data-cor="E10"></td>
+            <td data-cor="F10"></td>
+            <td data-cor="G10"></td>
+            <td data-cor="H10"></td>
+            <td data-cor="I10"></td>
+            <td data-cor="J10"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table id="table-to-attack" style="display:none;" border="1">
+        <thead>
+          <tr>
+            <td></td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+            <td>H</td>
+            <td>I</td>
+            <td>J</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td data-cor="A1"></td>
+            <td data-cor="B1"></td>
+            <td data-cor="C1"></td>
+            <td data-cor="D1"></td>
+            <td data-cor="E1"></td>
+            <td data-cor="F1"></td>
+            <td data-cor="G1"></td>
+            <td data-cor="H1"></td>
+            <td data-cor="I1"></td>
+            <td data-cor="J1"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td data-cor="A2"></td>
+            <td data-cor="B2"></td>
+            <td data-cor="C2"></td>
+            <td data-cor="D2"></td>
+            <td data-cor="E2"></td>
+            <td data-cor="F2"></td>
+            <td data-cor="G2"></td>
+            <td data-cor="H2"></td>
+            <td data-cor="I2"></td>
+            <td data-cor="J2"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td data-cor="A3"></td>
+            <td data-cor="B3"></td>
+            <td data-cor="C3"></td>
+            <td data-cor="D3"></td>
+            <td data-cor="E3"></td>
+            <td data-cor="F3"></td>
+            <td data-cor="G3"></td>
+            <td data-cor="H3"></td>
+            <td data-cor="I3"></td>
+            <td data-cor="J3"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td data-cor="A4"></td>
+            <td data-cor="B4"></td>
+            <td data-cor="C4"></td>
+            <td data-cor="D4"></td>
+            <td data-cor="E4"></td>
+            <td data-cor="F4"></td>
+            <td data-cor="G4"></td>
+            <td data-cor="H4"></td>
+            <td data-cor="I4"></td>
+            <td data-cor="J4"></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td data-cor="A5"></td>
+            <td data-cor="B5"></td>
+            <td data-cor="C5"></td>
+            <td data-cor="D5"></td>
+            <td data-cor="E5"></td>
+            <td data-cor="F5"></td>
+            <td data-cor="G5"></td>
+            <td data-cor="H5"></td>
+            <td data-cor="I5"></td>
+            <td data-cor="J5"></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td data-cor="A6"></td>
+            <td data-cor="B6"></td>
+            <td data-cor="C6"></td>
+            <td data-cor="D6"></td>
+            <td data-cor="E6"></td>
+            <td data-cor="F6"></td>
+            <td data-cor="G6"></td>
+            <td data-cor="H6"></td>
+            <td data-cor="I6"></td>
+            <td data-cor="J6"></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td data-cor="A7"></td>
+            <td data-cor="B7"></td>
+            <td data-cor="C7"></td>
+            <td data-cor="D7"></td>
+            <td data-cor="E7"></td>
+            <td data-cor="F7"></td>
+            <td data-cor="G7"></td>
+            <td data-cor="H7"></td>
+            <td data-cor="I7"></td>
+            <td data-cor="J7"></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td data-cor="A8"></td>
+            <td data-cor="B8"></td>
+            <td data-cor="C8"></td>
+            <td data-cor="D8"></td>
+            <td data-cor="E8"></td>
+            <td data-cor="F8"></td>
+            <td data-cor="G8"></td>
+            <td data-cor="H8"></td>
+            <td data-cor="I8"></td>
+            <td data-cor="J8"></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td data-cor="A9"></td>
+            <td data-cor="B9"></td>
+            <td data-cor="C9"></td>
+            <td data-cor="D9"></td>
+            <td data-cor="E9"></td>
+            <td data-cor="F9"></td>
+            <td data-cor="G9"></td>
+            <td data-cor="H9"></td>
+            <td data-cor="I9"></td>
+            <td data-cor="J9"></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td data-cor="A10"></td>
+            <td data-cor="B10"></td>
+            <td data-cor="C10"></td>
+            <td data-cor="D10"></td>
+            <td data-cor="E10"></td>
+            <td data-cor="F10"></td>
+            <td data-cor="G10"></td>
+            <td data-cor="H10"></td>
+            <td data-cor="I10"></td>
+            <td data-cor="J10"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="messages">
+        <span id="label-message">Choose you first navy of 5 positions</span>
+      </div>
+    </div>
+
+    <div id="attack-received"></div>
+
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var navy5Cor = [],
+          navy4Cor = [],
+          navy4Cor_ = [],
+          navy3Cor = [],
+          navy3Cor_ = [],
+          navy2Cor = [],
+          navy2Cor_ = [];
+      var username = (prompt('Please enter your name') || 'User') + (new Date().getTime());
+      $('#username').html(username);
+      var socket = io.connect();
+
+      $(document).ready(function(){
+
+        $('#myField table#table').on('click', 'td', function() {
+          var $td = $(this);
+          creatingMyField($td);
+        });
+
+        $('#myField table#table-to-attack').on('click', 'td', function() {
+          var $td = $(this);
+          $td.addClass('attack')
+          attack($td);
+        });
+
+        socket.on('new attack', function(data){
+          receiveAttack(data);
+        });
+      });
+
+      function receiveAttack(data) {
+        var $element = $('#myField table#table td[data-cor="'+data.position_to_attack+'"]');
+        if (data.username !== username) {
+          if ( noConfoundCells(data.position_to_attack) ) {
+            $element.html("X");
+          }else{
+            $element.addClass('attack-losed');
+          }
+        }
+        // console.log(data.position_to_attack);
+      }
+
+      function attack(element) {
+        socket.emit('send attack', {username: username, position_to_attack: element.data('cor')});
+      }
+
+      function creatingMyField(element) {
+        if (navy5Cor.length != 5) {
+          setNavy(navy5Cor, 5, element);
+          navy5Cor = navy5Cor.sort();
+        // }else if(navy4Cor.length != 4) {
+        //   $('#label-message').html("Choose you navy of 4 positions")
+        //   setNavy(navy4Cor, 4, $td);
+        //   navy4Cor = navy4Cor.sort();
+        // }else if(navy4Cor_.length != 4) {
+        //   $('#label-message').html("Choose you navy of 4 positions")
+        //   setNavy(navy4Cor_, 4, $td);
+        //   navy4Cor_ = navy4Cor_.sort();
+        // }else if(navy3Cor.length != 3) {
+        //   $('#label-message').html("Choose you navy of 3 positions")
+        //   setNavy(navy3Cor, 3, $td);
+        //   navy3Cor = navy3Cor.sort();
+        // }else if(navy3Cor_.length != 3) {
+        //   $('#label-message').html("Choose you navy of 3 positions")
+        //   setNavy(navy3Cor_, 3, $td);
+        //   navy3Cor_ = navy3Cor_.sort();
+        // }else if(navy2Cor.length != 2) {
+        //   $('#label-message').html("Choose you navy of 2 positions")
+        //   setNavy(navy2Cor, 2, $td);
+        //   navy2Cor = navy2Cor.sort();
+        // }else if(navy2Cor_.length != 2) {
+        //   $('#label-message').html("Choose you navy of 2 positions")
+        //   setNavy(navy2Cor_, 2, $td);
+        //   navy2Cor_ = navy2Cor_.sort();
+        }else{
+          $('#label-message').html("Ready. Go to fight! Attack!");
+          $('#table-to-attack').show();
+        }
+      }
+
+      function setNavy(navy, length, element) {
+        if (navy.length < length) {
+          if(verifyNavyPosition(element.data('cor'), length, navy) == true){
+            element.addClass('navy');
+            navy[navy.length] = element.data('cor');
+          }
+        }
+      }
+
+      function verifyNavyPosition(newPosition, navyLength, navyPositions) {
+        if(navyPositions.length === 0){
+          return true;
+        }
+        if (navyPositions.length < navyLength) {
+          lastPosition = navyPositions[navyPositions.length - 1];
+          if ( !noConfoundCells(newPosition) ) {
+            if( nextTo(parseInt(lastPosition[1], 10), parseInt(newPosition[1]), 10) ||
+                beforeTo(parseInt(navyPositions[0][1], 10), parseInt(newPosition[1]), 10) ){
+              return true;
+            }
+          }
+        }
+      }
+
+      function noConfoundCells(position) {
+        var result = false;
+        [navy5Cor, navy4Cor, navy4Cor_, navy3Cor, navy3Cor_, navy2Cor, navy2Cor_].map(function(elem) {
+          if (elem.indexOf(position) != -1) {
+            result = true;
+          }
+        });
+        return result;
+      }
+
+      function nextLetterTo(){
+
+      }
+      function beforeLetterTo(){}
+
+      function nextTo(number, newNumber) {
+        return (newNumber == (number + 1));
+      }
+
+      function beforeTo(number, newNumber) {
+        return (newNumber == (number - 1));
+      }
+    </script>
+  </body>
+</html>
