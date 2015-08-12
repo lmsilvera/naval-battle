@@ -342,131 +342,129 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      var navy5Cor = [],
-          navy4Cor = [],
-          navy4Cor_ = [],
-          navy3Cor = [],
-          navy3Cor_ = [],
-          navy2Cor = [],
-          navy2Cor_ = [];
-      var username = (prompt('Please enter your name') || 'User') + (new Date().getTime());
-      $('#username').html(username);
-      var socket = io.connect();
 
       $(document).ready(function(){
-
-        $('#myField table#table').on('click', 'td', function() {
-          var $td = $(this);
-          creatingMyField($td);
-        });
-
-        $('#myField table#table-to-attack').on('click', 'td', function() {
-          var $td = $(this);
-          $td.addClass('attack')
-          attack($td);
-        });
-
-        socket.on('new attack', function(data){
-          receiveAttack(data);
-        });
+        NavalBattle.init();
       });
 
-      function receiveAttack(data) {
-        var $element = $('#myField table#table td[data-cor="'+data.position_to_attack+'"]');
-        if (data.username !== username) {
-          if ( noConfoundCells(data.position_to_attack) ) {
-            $element.html("X");
+      var NavalBattle = (function navalBattle(){
+        var navy5Cor = [],
+            navy4Cor = [],
+            navy4Cor_ = [],
+            navy3Cor = [],
+            navy3Cor_ = [],
+            navy2Cor = [],
+            navy2Cor_ = [];
+
+        var username = "";
+
+        var socket = io.connect();
+
+        function setUsername() {
+           username = (prompt('Please enter your name') || 'User') + (new Date().getTime());
+          $('#username').html(username);
+        }
+
+        function buildFloats() {
+          $('#myField table#table').on('click', 'td', function() {
+            var $td = $(this);
+            creatingMyField($td);
+          });
+        }
+
+        function attackEnemyFloats (argument) {
+          $('#myField table#table-to-attack').on('click', 'td', function() {
+            var $td = $(this);
+            $td.addClass('attack')
+            attack($td);
+          });
+        }
+
+        function listenAttacks() {
+          socket.on('new attack', function(data){
+            receiveAttack(data);
+          });
+        }
+
+        function creatingMyField(element) {
+          if (navy5Cor.length != 5) {
+            setNavy(navy5Cor, 5, element);
+            navy5Cor = navy5Cor.sort();
           }else{
-            $element.addClass('attack-losed');
+            $('#label-message').html("Ready. Go to fight! Attack!");
+            $('#table-to-attack').show();
           }
         }
-        // console.log(data.position_to_attack);
-      }
 
-      function attack(element) {
-        socket.emit('send attack', {username: username, position_to_attack: element.data('cor')});
-      }
-
-      function creatingMyField(element) {
-        if (navy5Cor.length != 5) {
-          setNavy(navy5Cor, 5, element);
-          navy5Cor = navy5Cor.sort();
-        // }else if(navy4Cor.length != 4) {
-        //   $('#label-message').html("Choose you navy of 4 positions")
-        //   setNavy(navy4Cor, 4, $td);
-        //   navy4Cor = navy4Cor.sort();
-        // }else if(navy4Cor_.length != 4) {
-        //   $('#label-message').html("Choose you navy of 4 positions")
-        //   setNavy(navy4Cor_, 4, $td);
-        //   navy4Cor_ = navy4Cor_.sort();
-        // }else if(navy3Cor.length != 3) {
-        //   $('#label-message').html("Choose you navy of 3 positions")
-        //   setNavy(navy3Cor, 3, $td);
-        //   navy3Cor = navy3Cor.sort();
-        // }else if(navy3Cor_.length != 3) {
-        //   $('#label-message').html("Choose you navy of 3 positions")
-        //   setNavy(navy3Cor_, 3, $td);
-        //   navy3Cor_ = navy3Cor_.sort();
-        // }else if(navy2Cor.length != 2) {
-        //   $('#label-message').html("Choose you navy of 2 positions")
-        //   setNavy(navy2Cor, 2, $td);
-        //   navy2Cor = navy2Cor.sort();
-        // }else if(navy2Cor_.length != 2) {
-        //   $('#label-message').html("Choose you navy of 2 positions")
-        //   setNavy(navy2Cor_, 2, $td);
-        //   navy2Cor_ = navy2Cor_.sort();
-        }else{
-          $('#label-message').html("Ready. Go to fight! Attack!");
-          $('#table-to-attack').show();
-        }
-      }
-
-      function setNavy(navy, length, element) {
-        if (navy.length < length) {
-          if(verifyNavyPosition(element.data('cor'), length, navy) == true){
-            element.addClass('navy');
-            navy[navy.length] = element.data('cor');
-          }
-        }
-      }
-
-      function verifyNavyPosition(newPosition, navyLength, navyPositions) {
-        if(navyPositions.length === 0){
-          return true;
-        }
-        if (navyPositions.length < navyLength) {
-          lastPosition = navyPositions[navyPositions.length - 1];
-          if ( !noConfoundCells(newPosition) ) {
-            if( nextTo(parseInt(lastPosition[1], 10), parseInt(newPosition[1]), 10) ||
-                beforeTo(parseInt(navyPositions[0][1], 10), parseInt(newPosition[1]), 10) ){
-              return true;
+        function setNavy(navy, length, element) {
+          if (navy.length < length) {
+            if(verifyNavyPosition(element.data('cor'), length, navy) == true){
+              element.addClass('navy');
+              navy[navy.length] = element.data('cor');
             }
           }
         }
-      }
 
-      function noConfoundCells(position) {
-        var result = false;
-        [navy5Cor, navy4Cor, navy4Cor_, navy3Cor, navy3Cor_, navy2Cor, navy2Cor_].map(function(elem) {
-          if (elem.indexOf(position) != -1) {
-            result = true;
+        function attack(element) {
+          socket.emit('send attack', {username: username, position_to_attack: element.data('cor')});
+        }
+
+        function receiveAttack(data) {
+          var $element = $('#myField table#table td[data-cor="'+data.position_to_attack+'"]');
+          if (data.username !== username) {
+            if ( noConfoundCells(data.position_to_attack) ) {
+              $element.html("X");
+            }else{
+              $element.addClass('attack-losed');
+            }
           }
-        });
-        return result;
-      }
+        }
 
-      function nextLetterTo(){
+        function verifyNavyPosition(newPosition, navyLength, navyPositions) {
+          if(navyPositions.length === 0){
+            return true;
+          }
+          if (navyPositions.length < navyLength) {
+            lastPosition = navyPositions[navyPositions.length - 1];
+            if ( !noConfoundCells(newPosition) ) {
+              if( nextTo(parseInt(lastPosition[1], 10), parseInt(newPosition[1]), 10) ||
+                  beforeTo(parseInt(navyPositions[0][1], 10), parseInt(newPosition[1]), 10) ){
+                return true;
+              }
+            }
+          }
+        }
 
-      }
-      function beforeLetterTo(){}
+        function noConfoundCells(position) {
+          var result = false;
+          [navy5Cor, navy4Cor, navy4Cor_, navy3Cor, navy3Cor_, navy2Cor, navy2Cor_].map(function(elem) {
+            if (elem.indexOf(position) != -1) {
+              result = true;
+            }
+          });
+          return result;
+        }
 
-      function nextTo(number, newNumber) {
-        return (newNumber == (number + 1));
-      }
+        function nextLetterTo(){}
 
-      function beforeTo(number, newNumber) {
-        return (newNumber == (number - 1));
-      }
+        function beforeLetterTo(){}
+
+        function nextTo(number, newNumber) {return (newNumber == (number + 1)); }
+
+        function beforeTo(number, newNumber) {return (newNumber == (number - 1)); }
+
+        function init() {
+          buildFloats();
+          attackEnemyFloats();
+          listenAttacks();
+          setUsername();
+        }
+
+        return {
+          init: init
+        }
+      })();
+
     </script>
   </body>
 </html>
