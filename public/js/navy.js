@@ -8,30 +8,46 @@ var Navy = (function(){
   // navies[5] => 2 positions
   // navies[6] => 2 positions
 
-  var navies = [[],[],[],[],[],[],[]];
-  var username, socket;
+  var navies = [[],[],[],[],[],[],[]],
+      username, socket;
 
   function buildNavies() {
     var selectorTable = "#myField table#table";
-    var $td, $table, queryElements, navyPositions, length = 5;
+    var $td
+        , $table
+        , queryElements
+        , navyPositions
+        , directionNavies = queryElementsByPositionVertically
+        , length = 5;
 
-    $(selectorTable).on('mouseover', 'td[data-cor]', function() {
-      if (length !== 0) {
-        $td = $(this);
-        infoElements = queryElementsByPositionVertically($td.data('cor'), length);
-        queryElements = infoElements.queryElements;
-        navyPositions = infoElements.positions;
-        $table = $td.parents('table');
-        $table.find(queryElements).addClass('select-position');
+    var markingPositionsNavy = function markingPositionsNavy(context) {
+      clearMarksNavies();
+      $td = $(context);
+      $table = $td.parents('table');
+      infoElements = directionNavies($td.data('cor'), length);
+      navyPositions = infoElements.positions;
+      queryElements = infoElements.queryElements;
+      markNavies($td, $table, length, queryElements, navyPositions);
+    }
+
+    $(selectorTable).on('mousedown', 'td[data-cor]', function(event) {
+      if(event.which === 2){
+        if (directionNavies === queryElementsByPositionHorizontally){
+          directionNavies = queryElementsByPositionVertically;
+          markingPositionsNavy(this);
+        }else{
+          directionNavies = queryElementsByPositionHorizontally;
+          markingPositionsNavy(this);
+        }
       };
     });
 
-    $(selectorTable).on('mouseleave', 'td', function() {
-      $table.find(queryElements).removeClass('select-position');
+    $(selectorTable).on('mouseover', 'td[data-cor]', function() {
+      markingPositionsNavy(this);
     });
 
     $(selectorTable).on('click', 'td', function() {
-      if (length !== 0){
+      if (length !== 0 && !noConfoundCells( navyPositions ) ){
         if (navies[0].length === 0 ) {
           setNavy($table, queryElements);
           navies[0] = navyPositions;
@@ -68,6 +84,16 @@ var Navy = (function(){
     return navyPositions;
   };
 
+  function clearMarksNavies() {
+    $('table#table').find('td[data-cor]').removeClass('select-position');
+  }
+
+  function markNavies(element, elementTable, length, queryElements, navyPositions) {
+    if (length !== 0 && !noConfoundCells( navyPositions ) ) {
+      elementTable.find(queryElements).addClass('select-position');
+    };
+  }
+
   function setNavy(parent, child) {
     parent.find(child).addClass('selected-position');
   }
@@ -100,20 +126,37 @@ var Navy = (function(){
   function queryElementsByPositionHorizontally(position, length) {
     var letter = getLetters(position),
         number = getNumbers(position),
-        queryElements = 'td[data-cor="'+ (letter + number) +'"]'+ (length !== 1 ? ',' : '') +'',
+        queryElements = '',
         positions = [position];
-    var z = lastLetterOnFieldPosition(letter, length);
-    console.log(z);
-    if ( z !== null ) {
-      console.log("BN");
+
+    var letters = lettersNextToPosition(letter, length);
+
+    if ( letters.indexOf(null) === -1 ) {
+      letters.forEach(function(letterPosition, index){
+
+        positions[positions.length] = (letterPosition + (number));
+
+        if (letterPosition === letters[letters.length - 1]) {
+          queryElements += 'td[data-cor="'+ (letterPosition + (number)) +'"]';
+        }else{
+          queryElements += 'td[data-cor="'+ (letterPosition + (number)) +'"],'
+        }
+
+      });
+    }else{
+      queryElements = "";
+    };
+    return {
+      queryElements: queryElements,
+      positions: positions
     };
   };
 
-  function lastLetterOnFieldPosition(letter, length) {
-    var result = letter;
-    for (var i = 1; i <= length; i++) {
+  function lettersNextToPosition(letter, length) {
+    var result = [letter];
+    for (var i = 1; i < length; i++) {
       if (result !== null) {
-        result = letterNextTo(result);
+        result[result.length] = letterNextTo(result[result.length - 1]);
       };
     };
     return result;
@@ -210,15 +253,23 @@ var Navy = (function(){
 
   function noConfoundCells(position) {
     var result = false;
-    navies.map(function(elem) {
-      if (elem.indexOf(position) != -1) { result = true; }
-    });
+    if (typeof position === "object") {
+      position.forEach(function(element, index){
+        navies.map(function(elem) {
+          if (elem.indexOf(element) != -1) { result = true; }
+        });
+      });
+    }else{
+      navies.map(function(elem) {
+        if (elem.indexOf(position) != -1) { result = true; }
+      });
+    };
     return result;
   }
 
   function getNumbers(string) { return parseInt(string.match(/\d+/)[0], 10); };
 
-  function getLetters(string) { return string.match(/[A-Za-z]/); };
+  function getLetters(string) { return string.match(/[A-Za-z]/)[0]; };
 
   function init(){
     setUsername();
