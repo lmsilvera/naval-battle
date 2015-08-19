@@ -1,0 +1,315 @@
+{% extends './layouts/default.html' %}
+
+{% block main %}
+  <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <div id="username"></div>
+  <div id="myField">
+    <table id="table" border="1">
+      <thead>
+        <tr>
+          <td></td>
+          <td>A</td>
+          <td>B</td>
+          <td>C</td>
+          <td>D</td>
+          <td>E</td>
+          <td>F</td>
+          <td>G</td>
+          <td>H</td>
+          <td>I</td>
+          <td>J</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td data-cor="A1"></td>
+          <td data-cor="B1"></td>
+          <td data-cor="C1"></td>
+          <td data-cor="D1"></td>
+          <td data-cor="E1"></td>
+          <td data-cor="F1"></td>
+          <td data-cor="G1"></td>
+          <td data-cor="H1"></td>
+          <td data-cor="I1"></td>
+          <td data-cor="J1"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td data-cor="A2"></td>
+          <td data-cor="B2"></td>
+          <td data-cor="C2"></td>
+          <td data-cor="D2"></td>
+          <td data-cor="E2"></td>
+          <td data-cor="F2"></td>
+          <td data-cor="G2"></td>
+          <td data-cor="H2"></td>
+          <td data-cor="I2"></td>
+          <td data-cor="J2"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td data-cor="A3"></td>
+          <td data-cor="B3"></td>
+          <td data-cor="C3"></td>
+          <td data-cor="D3"></td>
+          <td data-cor="E3"></td>
+          <td data-cor="F3"></td>
+          <td data-cor="G3"></td>
+          <td data-cor="H3"></td>
+          <td data-cor="I3"></td>
+          <td data-cor="J3"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td data-cor="A4"></td>
+          <td data-cor="B4"></td>
+          <td data-cor="C4"></td>
+          <td data-cor="D4"></td>
+          <td data-cor="E4"></td>
+          <td data-cor="F4"></td>
+          <td data-cor="G4"></td>
+          <td data-cor="H4"></td>
+          <td data-cor="I4"></td>
+          <td data-cor="J4"></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td data-cor="A5"></td>
+          <td data-cor="B5"></td>
+          <td data-cor="C5"></td>
+          <td data-cor="D5"></td>
+          <td data-cor="E5"></td>
+          <td data-cor="F5"></td>
+          <td data-cor="G5"></td>
+          <td data-cor="H5"></td>
+          <td data-cor="I5"></td>
+          <td data-cor="J5"></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td data-cor="A6"></td>
+          <td data-cor="B6"></td>
+          <td data-cor="C6"></td>
+          <td data-cor="D6"></td>
+          <td data-cor="E6"></td>
+          <td data-cor="F6"></td>
+          <td data-cor="G6"></td>
+          <td data-cor="H6"></td>
+          <td data-cor="I6"></td>
+          <td data-cor="J6"></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td data-cor="A7"></td>
+          <td data-cor="B7"></td>
+          <td data-cor="C7"></td>
+          <td data-cor="D7"></td>
+          <td data-cor="E7"></td>
+          <td data-cor="F7"></td>
+          <td data-cor="G7"></td>
+          <td data-cor="H7"></td>
+          <td data-cor="I7"></td>
+          <td data-cor="J7"></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td data-cor="A8"></td>
+          <td data-cor="B8"></td>
+          <td data-cor="C8"></td>
+          <td data-cor="D8"></td>
+          <td data-cor="E8"></td>
+          <td data-cor="F8"></td>
+          <td data-cor="G8"></td>
+          <td data-cor="H8"></td>
+          <td data-cor="I8"></td>
+          <td data-cor="J8"></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td data-cor="A9"></td>
+          <td data-cor="B9"></td>
+          <td data-cor="C9"></td>
+          <td data-cor="D9"></td>
+          <td data-cor="E9"></td>
+          <td data-cor="F9"></td>
+          <td data-cor="G9"></td>
+          <td data-cor="H9"></td>
+          <td data-cor="I9"></td>
+          <td data-cor="J9"></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td data-cor="A10"></td>
+          <td data-cor="B10"></td>
+          <td data-cor="C10"></td>
+          <td data-cor="D10"></td>
+          <td data-cor="E10"></td>
+          <td data-cor="F10"></td>
+          <td data-cor="G10"></td>
+          <td data-cor="H10"></td>
+          <td data-cor="I10"></td>
+          <td data-cor="J10"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="table-to-attack" style="display:none;" border="1">
+      <thead>
+        <tr>
+          <td></td>
+          <td>A</td>
+          <td>B</td>
+          <td>C</td>
+          <td>D</td>
+          <td>E</td>
+          <td>F</td>
+          <td>G</td>
+          <td>H</td>
+          <td>I</td>
+          <td>J</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td data-cor="A1"></td>
+          <td data-cor="B1"></td>
+          <td data-cor="C1"></td>
+          <td data-cor="D1"></td>
+          <td data-cor="E1"></td>
+          <td data-cor="F1"></td>
+          <td data-cor="G1"></td>
+          <td data-cor="H1"></td>
+          <td data-cor="I1"></td>
+          <td data-cor="J1"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td data-cor="A2"></td>
+          <td data-cor="B2"></td>
+          <td data-cor="C2"></td>
+          <td data-cor="D2"></td>
+          <td data-cor="E2"></td>
+          <td data-cor="F2"></td>
+          <td data-cor="G2"></td>
+          <td data-cor="H2"></td>
+          <td data-cor="I2"></td>
+          <td data-cor="J2"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td data-cor="A3"></td>
+          <td data-cor="B3"></td>
+          <td data-cor="C3"></td>
+          <td data-cor="D3"></td>
+          <td data-cor="E3"></td>
+          <td data-cor="F3"></td>
+          <td data-cor="G3"></td>
+          <td data-cor="H3"></td>
+          <td data-cor="I3"></td>
+          <td data-cor="J3"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td data-cor="A4"></td>
+          <td data-cor="B4"></td>
+          <td data-cor="C4"></td>
+          <td data-cor="D4"></td>
+          <td data-cor="E4"></td>
+          <td data-cor="F4"></td>
+          <td data-cor="G4"></td>
+          <td data-cor="H4"></td>
+          <td data-cor="I4"></td>
+          <td data-cor="J4"></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td data-cor="A5"></td>
+          <td data-cor="B5"></td>
+          <td data-cor="C5"></td>
+          <td data-cor="D5"></td>
+          <td data-cor="E5"></td>
+          <td data-cor="F5"></td>
+          <td data-cor="G5"></td>
+          <td data-cor="H5"></td>
+          <td data-cor="I5"></td>
+          <td data-cor="J5"></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td data-cor="A6"></td>
+          <td data-cor="B6"></td>
+          <td data-cor="C6"></td>
+          <td data-cor="D6"></td>
+          <td data-cor="E6"></td>
+          <td data-cor="F6"></td>
+          <td data-cor="G6"></td>
+          <td data-cor="H6"></td>
+          <td data-cor="I6"></td>
+          <td data-cor="J6"></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td data-cor="A7"></td>
+          <td data-cor="B7"></td>
+          <td data-cor="C7"></td>
+          <td data-cor="D7"></td>
+          <td data-cor="E7"></td>
+          <td data-cor="F7"></td>
+          <td data-cor="G7"></td>
+          <td data-cor="H7"></td>
+          <td data-cor="I7"></td>
+          <td data-cor="J7"></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td data-cor="A8"></td>
+          <td data-cor="B8"></td>
+          <td data-cor="C8"></td>
+          <td data-cor="D8"></td>
+          <td data-cor="E8"></td>
+          <td data-cor="F8"></td>
+          <td data-cor="G8"></td>
+          <td data-cor="H8"></td>
+          <td data-cor="I8"></td>
+          <td data-cor="J8"></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td data-cor="A9"></td>
+          <td data-cor="B9"></td>
+          <td data-cor="C9"></td>
+          <td data-cor="D9"></td>
+          <td data-cor="E9"></td>
+          <td data-cor="F9"></td>
+          <td data-cor="G9"></td>
+          <td data-cor="H9"></td>
+          <td data-cor="I9"></td>
+          <td data-cor="J9"></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td data-cor="A10"></td>
+          <td data-cor="B10"></td>
+          <td data-cor="C10"></td>
+          <td data-cor="D10"></td>
+          <td data-cor="E10"></td>
+          <td data-cor="F10"></td>
+          <td data-cor="G10"></td>
+          <td data-cor="H10"></td>
+          <td data-cor="I10"></td>
+          <td data-cor="J10"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="messages">
+      <span id="label-message">Choose you first navy of 5 positions</span>
+    </div>
+  </div>
+  <div id="attack-received"></div>
+{% endblock %}
