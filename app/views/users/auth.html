@@ -1,0 +1,14 @@
+{% extends '../layouts/default.html' %}
+
+{% block main %}
+  <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <a href="/auth/facebook">
+    <img src="/images/fbauth.png" alt="facebook auth">
+  </a>
+  <div class="login">
+    {% block auth %}{% endblock %}
+  </div>
+{% endblock %}

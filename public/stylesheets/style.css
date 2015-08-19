@@ -1,0 +1,29 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+td{
+  width: 20px;
+  height: 20px;
+}
+.attack-losed{
+  background: #FFFF00;
+}
+.attack{
+  background: red;
+}
+.destroyed{
+  background: #FF00FF;
+}
+.selected-position{
+  background: blue;
+}
+.select-position{
+  background: gray;
+}
+table{
+  display: inline-block;
+}

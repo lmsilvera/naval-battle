@@ -27,7 +27,7 @@ var Navy = (function(){
       infoElements = directionNavies($td.data('cor'), length);
       navyPositions = infoElements.positions;
       queryElements = infoElements.queryElements;
-      markNavies($td, $table, length, queryElements, navyPositions);
+      markNavies($td, $table, length, queryElements);
     }
 
     $(selectorTable).on('mousedown', 'td[data-cor]', function(event) {
@@ -47,7 +47,7 @@ var Navy = (function(){
     });
 
     $(selectorTable).on('click', 'td', function() {
-      if (length !== 0 && !noConfoundCells( navyPositions ) ){
+      if (length !== 0 && !noConfoundCells( $td.data('cor') )){
         if (navies[0].length === 0 ) {
           setNavy($table, queryElements);
           navies[0] = navyPositions;
@@ -88,8 +88,9 @@ var Navy = (function(){
     $('table#table').find('td[data-cor]').removeClass('select-position');
   }
 
-  function markNavies(element, elementTable, length, queryElements, navyPositions) {
-    if (length !== 0 && !noConfoundCells( navyPositions ) ) {
+  function markNavies(element, elementTable, length, queryElements) {
+    var tableParent;
+    if (length !== 0 && !noConfoundCells( element.data('cor') ) ) {
       elementTable.find(queryElements).addClass('select-position');
     };
   }
