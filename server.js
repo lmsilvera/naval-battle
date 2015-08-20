@@ -25,7 +25,7 @@ fs.readdirSync(join(__dirname, 'app/models')).forEach(function (file) {
   if (~file.indexOf('.js')) require(join(__dirname, 'app/models', file));
 });
 
-// require('./config/passport')(passport, config);
+require('./config/passport')(passport, config);
 require('./config/express')(app, passport);
 require('./config/routes')(app, passport);
 require('./config/sockets')(io, server);

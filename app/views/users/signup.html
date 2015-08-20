@@ -1,6 +1,10 @@
-{% extends 'auth.html' %}
+{% extends '../layouts/default.html' %}
 
-{% block auth %}
+{% block main %}
+  <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
   <form action="/users" method="post" role="form" class="form-horizontal">
     <input type="hidden" name="_csrf" value="{{ csrf_token }}">
 
@@ -37,6 +41,10 @@
         <button class="btn btn-primary" type="submit">Sign up</button>
         &nbsp; or &nbsp;
         <a href="/login" class="show-login">Log in</a>
+        &nbsp;
+        <a href="/auth/facebook">
+          <img src="/images/fbauth.png" alt="facebook auth">
+        </a>
       </div>
     </div>
   </form>

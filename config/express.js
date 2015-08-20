@@ -1,12 +1,14 @@
 var express = require('express'),
     session = require('express-session'),
     morgan = require('morgan'),
+    debug = require('debug'),
     cookieParser = require('cookie-parser'),
     cookieSession = require('cookie-session'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     csrf = require('csurf'),
     mongoStore = require('connect-mongo')(session),
+    flash = require('connect-flash'),
     helpers = require('view-helpers'),
     swig = require('swig'),
     config = require('config'),
@@ -23,6 +25,8 @@ module.exports = function (app, passport) {
       cache: false
     });
   }
+
+  if (env !== 'test') app.use(morgan('dev'));
 
   app.engine('html', swig.renderFile);
   app.set('views', config.root + '/app/views');
@@ -57,6 +61,10 @@ module.exports = function (app, passport) {
     })
   }));
 
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.use(flash());
   app.use(helpers(pkg.name));
 
   if (process.env.NODE_ENV !== 'test') {

@@ -29,7 +29,10 @@ var mongoose = require('mongoose'),
       // manually login the user once successfully signed up
       req.logIn(user, function(err) {
         if (err) req.flash('info', 'Sorry! We are not able to log you in!');
-        return res.redirect('/');
+        return res.render('users/show', {
+          title: user.name,
+          user: user
+        });
       });
     });
   };
@@ -67,7 +70,7 @@ var mongoose = require('mongoose'),
   exports.session = login;
 
   function login (req, res) {
-    var redirectTo = req.session.returnTo ? req.session.returnTo : '/';
+    var redirectTo = req.session.returnTo ? req.session.returnTo : '/home';
     delete req.session.returnTo;
     res.redirect(redirectTo);
   };
