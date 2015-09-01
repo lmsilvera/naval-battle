@@ -1,6 +1,9 @@
 var home = require('home'),
     users = require('users'),
-    auth = require('./middlewares/authorization');
+    matches = require('matches'),
+    auth = require('./middlewares/authorization'),
+
+    matchAuth = [auth.requiresLogin, auth.user.hasAuthorization];
 
 module.exports = function (app, passport) {
 
@@ -9,7 +12,7 @@ module.exports = function (app, passport) {
   app.get('/signup', users.signup);
   app.get('/logout', users.logout);
   app.post('/users', users.create);
-  app.get('/home', home.index);
+  app.get('/home', auth.requiresLogin, home.index);
 
   app.post('/users/session',
     passport.authenticate('local', {
@@ -32,6 +35,15 @@ module.exports = function (app, passport) {
     }), users.authCallback);
 
   app.param('userId', users.load);
+
+  // matches
+  app.param('id', matches.load);
+  app.get('/matches', auth.requiresLogin, matches.index);
+  app.get('/matches/new', auth.requiresLogin, matches.new);
+  app.post('/matches', auth.requiresLogin, matches.create);
+  app.get('/matches/:id', matches.show);
+  app.get('/matches/:id', matches.destroy);
+
 
   app.use(function (err, req, res, next) {
     // treat as 404

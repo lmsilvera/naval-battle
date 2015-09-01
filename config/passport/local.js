@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     config = require('config'),
     User = mongoose.model('User');
 
-module.exports = new LocalStrategy({
+  module.exports = new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },

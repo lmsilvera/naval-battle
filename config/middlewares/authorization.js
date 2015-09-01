@@ -6,6 +6,7 @@
 exports.requiresLogin = function (req, res, next) {
   if (req.isAuthenticated()) return next()
   if (req.method == 'GET') req.session.returnTo = req.originalUrl
+  req.flash('error', 'You are not authorized, please SignIn or create a new account.')
   res.redirect('/login')
 }
 

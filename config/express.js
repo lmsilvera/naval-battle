@@ -50,7 +50,7 @@ module.exports = function (app, passport) {
   }));
 
   app.use(cookieParser());
-  app.use(cookieSession({ secret: 'secret' }));
+  app.use(cookieSession({ secret: '6h9591bbXW8gapg729oouiCQYE2oOg' }));
   app.use(session({
     resave: true,
     saveUninitialized: true,

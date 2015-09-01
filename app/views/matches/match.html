@@ -1,0 +1,34 @@
+<div class="match">
+  <h3>
+    <a href="{{ '/matches/' + match._id }}" title="{{ match.title }}">
+      {{ match.title }}
+    </a>
+  </h3>
+
+  {% if (match.player_one) %}
+    &nbsp; - &nbsp;
+    <span>Playe One: </span>
+    <a href="{{ '/users/' + match.winner._id }}">
+      {{ match.winner.name || match.winner.username }}
+    </a>
+  {% endif %}
+
+  <span class="muted">{{ match.createdAt.toISOString()|date('M d, Y  h:i a') }}</span>
+
+  {% if (match.player_one) %}
+    &nbsp; - &nbsp;
+    <span>Playe One: </span>
+    <a href="{{ '/users/' + match.player_one._id }}">
+      {{ match.player_one.name || match.player_one.username }}
+    </a>
+  {% endif %}
+
+  {% if (match.player_two) %}
+    &nbsp; - &nbsp;
+    <span>Player Two: </span>
+    <a href="{{ '/users/' + match.player_two._id }}">
+      {{ match.player_two.name || match.player_two.username }}
+    </a>
+  {% endif %}
+
+</div>
